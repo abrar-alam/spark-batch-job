@@ -2,6 +2,11 @@ Spark batch
 
 Requires JDK 17
 
+V. V. IMP: We followed all the instaruction here in this video until exporting PYTHONPATH @ timestamp 8:34:
+
+https://www.youtube.com/watch?v=hqUbB9c8sKg&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=54
+
+
 # Replace Java installation guide with the below:
 # check current java
 java -version
@@ -20,3 +25,11 @@ echo 'export PATH="$JAVA_HOME/bin:$PATH"' >> ~/.bashrc
 
 # verify
 java -version
+
+----------------------------------------------------------
+
+How to set SPARK_HOME:
+
+# Please make sure to be in the UV initialized project first!
+export SPARK_HOME="$(uv run python -c "import pyspark, os; print(os.path.dirname(pyspark.__file__))")"
+
