@@ -25,6 +25,7 @@ green_taxi_data_path = args.green_taxi_data_path
 yellow_taxi_data_path = args.yellow_taxi_data_path
 output_path = args.output_path
 
+# Below no master was mentioned because we will use spark submit to run the code on the cluster, and master will be mentioned there.
 spark = SparkSession.builder \
     .appName('test') \
     .getOrCreate()
