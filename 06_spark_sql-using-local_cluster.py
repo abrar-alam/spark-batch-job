@@ -1,19 +1,38 @@
 #!/usr/bin/env python
 # coding: utf-8
 #  INFO: https://spark.apache.org/docs/latest/spark-standalone.html#installing-spark-standalone-to-a-cluster
-
+import argparse
 import pyspark
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument('--green_taxi_data_path', required=True)
+parser.add_argument('--yellow_taxi_data_path', required=True)
+parser.add_argument('--output_path', required=True)
+
+# Ensure no white spaces in the arguments, otherwise parsing will fail.
+# Sample command:
+#  uv run python 06_spark_sql-using-local_cluster.py \
+#  --green_taxi_data_path=data/pq/green/2020/*/ \
+#  --yellow_taxi_data_path=data/pq/yellow/2020/*/ \
+#  --output_path=data/report-2020
+
+args = parser.parse_args()
+
+green_taxi_data_path = args.green_taxi_data_path
+yellow_taxi_data_path = args.yellow_taxi_data_path
+output_path = args.output_path
 
 spark = SparkSession.builder \
     .master("spark://instance-20260304-004249.us-central1-c.c.udemy-compute-engine-abrar.internal:7077") \
     .appName('test') \
     .getOrCreate()
 
-df_green = spark.read.option("recursiveFileLookup", "true").parquet("data/pq/green")
+df_green = spark.read.option("recursiveFileLookup", "true").parquet(green_taxi_data_path)
 
-df_yellow = spark.read.option("recursiveFileLookup", "true").parquet("data/pq/yellow")
+df_yellow = spark.read.option("recursiveFileLookup", "true").parquet(yellow_taxi_data_path)
 
 df_green = df_green \
     .withColumnRenamed('lpep_pickup_datetime', 'pickup_datetime') \
@@ -80,7 +99,7 @@ GROUP BY
     1, 2, 3
 """)
 
-df_result.coalesce(1).write.parquet('data/report/revenue/', mode='overwrite')
+df_result.coalesce(1).write.parquet(output_path, mode='overwrite')
 
 
 
