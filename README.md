@@ -31,5 +31,19 @@ java -version
 IMP LINKS FOR SPARK STANDALONE MODE:
 https://spark.apache.org/docs/latest/spark-standalone.html
 
+-----------------------------------------------------
+
+Sample command for spark submit:
+///////////////////////////////////////////
+URL=<spark master URL>
+
+spark-submit \
+    --master=${URL} \
+    06_spark_sql-using-local_cluster.py \
+    --green_taxi_data_path=data/pq/green/2021/*/ \
+    --yellow_taxi_data_path=data/pq/yellow/2021/*/ \
+    --output_path=data/report-2021
+/////////////////////////////////////////////
+
 
 
