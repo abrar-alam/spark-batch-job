@@ -28,8 +28,8 @@ java -version
 
 ----------------------------------------------------------
 
-How to set SPARK_HOME:
+IMP LINKS FOR SPARK STANDALONE MODE:
+https://spark.apache.org/docs/latest/spark-standalone.html
 
-# Please make sure to be in the UV initialized project first!
-export SPARK_HOME="$(uv run python -c "import pyspark, os; print(os.path.dirname(pyspark.__file__))")"
+
 
