@@ -26,7 +26,6 @@ yellow_taxi_data_path = args.yellow_taxi_data_path
 output_path = args.output_path
 
 spark = SparkSession.builder \
-    .master("spark://instance-20260304-004249.us-central1-c.c.udemy-compute-engine-abrar.internal:7077") \
     .appName('test') \
     .getOrCreate()
 
