@@ -45,5 +45,8 @@ spark-submit \
     --output_path=data/report-2021
 /////////////////////////////////////////////
 
+# Please ensure to stop the master and workers by executing the below commands:
 
+# SPARK_HOME/sbin/stop-worker.sh
 
+# $SPARK_HOME/sbin/stop-master.sh 
