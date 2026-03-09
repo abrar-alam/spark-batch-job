@@ -213,6 +213,8 @@ __marimo__/
 fhvhv
 data
 zones
+*.csv
+*.parquet
 
 # Credentials
 credentials
