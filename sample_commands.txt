@@ -1,0 +1,16 @@
+
+
+# Submitting a spark job through gcloud : 
+#  The --properties spark.master=local[*] was added to bypass YARN for 2021 data as it was too big
+# I could have increased the memory and resources instead.
+gcloud dataproc jobs submit pyspark \
+    --cluster=de-zoomcamp-873 \
+    --region=us-central1 \
+    gs://spark-batch-bucket/code/06_spark_sql-using-local_cluster.py \
+    --properties spark.master=local[*] \
+    -- \
+    --green_taxi_data_path=gs://spark-batch-bucket/pq/green/2021/*/ \
+    --yellow_taxi_data_path=gs://spark-batch-bucket/pq/yellow/2021/*/ \
+    --output_path=gs://spark-batch-bucket/report-2021
+
+

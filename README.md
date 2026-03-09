@@ -50,3 +50,10 @@ spark-submit \
 # SPARK_HOME/sbin/stop-worker.sh
 
 # $SPARK_HOME/sbin/stop-master.sh 
+
+-------------------------------------------
+
+GCP Resources used:
+VM (Check for snapshots)
+GCS 
+Dataproc cluster
