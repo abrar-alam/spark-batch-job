@@ -106,15 +106,18 @@ gsutil -m cp -r 06_spark_sql_big_query.py gs://dtc_data_lake_de-zoomcamp-nytaxi/
 
 Write results to big query ([docs](https://cloud.google.com/dataproc/docs/tutorials/bigquery-connector-spark-example#pyspark)):
 
+Note that "--properties spark.master=local[*]" should be included RIGHT AFTER the python file location arg if machines with low memory are being used. Please remove the --jars argument if any issue encountered.
+
 ```bash
 gcloud dataproc jobs submit pyspark \
-    --cluster=de-zoomcamp-cluster \
-    --region=europe-west6 \
+    --cluster=de-zoomcamp-873 \
+    --region=us-central1 \
     --jars=gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar \
-    gs://dtc_data_lake_de-zoomcamp-nytaxi/code/06_spark_sql_big_query.py \
+    gs://spark-batch-bucket/code/06_spark_sql_big_query.py \
+    --properties spark.master=local[*] \
     -- \
-        --input_green=gs://dtc_data_lake_de-zoomcamp-nytaxi/pq/green/2020/*/ \
-        --input_yellow=gs://dtc_data_lake_de-zoomcamp-nytaxi/pq/yellow/2020/*/ \
+        --input_green=gs://spark-batch-bucket/pq/green/2020/*/ \
+        --input_yellow=gs://spark-batch-bucket/pq/yellow/2020/*/ \
         --output=trips_data_all.reports-2020
 ```
 

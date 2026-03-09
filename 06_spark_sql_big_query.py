@@ -25,15 +25,17 @@ spark = SparkSession.builder \
     .appName('test') \
     .getOrCreate()
 
-spark.conf.set('temporaryGcsBucket', 'dataproc-temp-europe-west6-828225226997-fckhkym8')
+# IMP: the data is written first to GCS, and then it is loaded it to BigQuery. A GCS bucket must be configured to indicate the temporary data location
+# Here we chose the  temp bucket Dataproc created
+spark.conf.set('temporaryGcsBucket','dataproc-temp-us-central1-1001265769835-igo6hngr')
 
-df_green = spark.read.parquet(input_green)
+df_green = spark.read.option("recursiveFileLookup", "true").parquet(input_green)
 
 df_green = df_green \
     .withColumnRenamed('lpep_pickup_datetime', 'pickup_datetime') \
     .withColumnRenamed('lpep_dropoff_datetime', 'dropoff_datetime')
 
-df_yellow = spark.read.parquet(input_yellow)
+df_yellow = spark.read.option("recursiveFileLookup", "true").parquet(input_yellow)
 
 
 df_yellow = df_yellow \
